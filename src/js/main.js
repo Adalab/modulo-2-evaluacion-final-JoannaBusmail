@@ -41,32 +41,130 @@ function handleClick (event){
   
   }
 
+
+
+
 // PINTAR
 function renderItem (searchList){
  //VARIABLE DE PAINT FUNCTION
 let listItem = ''; 
-ulList.innerHTML += '';
+ulList.innerHTML = '';
+
+/*for (const eachItem of searchList){
+  //let textClicked = '' ;
+  let clickedStyle = '';
+
+const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
+  return favoriteItem.id === eachItem.id;
+});
+
+if (itemFoundIndex !== -1){
+
+  clickedStyle= 'preview--clicked';
+}else{
+  clickedStyle = '';
+}*/
+
 
 for (const eachItem of searchList){
-console.log(eachItem);
+//console.log(eachItem);
 
 if (eachItem.image === ''){
-  listItem += `<li class='js_listItem' id =${eachItem.id}><h3 js_itemTitle'> ${eachItem.name}</h3><img js_itemImage' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/></li>`;
-
-
+  //LI
+const li = document.createElement('li');
+ulList.appendChild(li);
+li.setAttribute(`${eachItem.id}`,'js_listItem' );
+li.appendChild (`${eachItem.id}`,'js_listItem' );
+//H3
+const h3 =document.createElement('h3');
+li.appendChild(h3);
+const titleH3 = document.createTextNode(` ${eachItem.name}`);
+h3.appendChild(` ${eachItem.name}`);
+h3.classList.add('title');
+//IMAGE
+const img = document.createElement('img');
+li.appendChild(img);
+image.setAttribute('src' , 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' ,'alt'  `${eachItem.alt}`);
+img.classList.add('image');
 }else{
-listItem += `<li class='js_listItem' id =${eachItem.id}><h3 class ='title js_itemTitle'> ${eachItem.name}</h3><img class ='image js_itemImage' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
+  //LI
+  const li = document.createElement('li');
+  ulList.appendChild(li);
+  li.setAttribute`${eachItem.id}` , 'js_listItem' ;
+  li.appendChild (`${eachItem.id}`,'js_listItem' );
+  //H3
+  const h3 =document.createElement('h3');
+  li.appendChild(h3);
+  const titleH3 = document.createTextNode(` ${eachItem.name}`);
+  h3.appendChild(` ${eachItem.name}`);
+  h3.classList.add('title');
+  //IMAGE
+  const img = document.createElement('img');
+  li.appendChild(img);
+  image.setAttribute('src' , `${eachItem.image}`, 'alt'  `${eachItem.alt}`);
+  img.classList.add('image');
 
-}};
+
+
+
+
+  /*listItem += `<li class='js_listItem' id =${eachItem.id}>`;
+  listItem += `<h3 class='title js_itemTitle'> ${eachItem.name}</h3>`;
+  listItem += `<img class= 'image js_itemImage ' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
+  listItem += `</li>`;*/
+
+
+listItem += `<li class='js_listItem' id =${eachItem.id}>`;
+listItem += `<h3 class ='title js_itemTitle'> ${eachItem.name}</h3>`;
+listItem += `<img class ='image js_itemImage ' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
+listItem += `</li>`;
+}
+};
 
 ulList.innerHTML += listItem;
-
-
-
+listenerList();
 }
 
+  //FUNCION LISTENER DE LA LIST
+  function listenerList(){
+    const liItem = document.querySelectorAll('.js_listItem');
+    for(const eachListItem of liItem){
+      eachListItem.addEventListener('click' , handleClickList);
+    }
+    }
 
 
-//LISTENERS
+
+//FAVORITOS
+let favoriteList = [];
+
+
+  //FUNCION CLICK LIST
+  function handleClickList(event){
+    console.log('click');
+  const idItemSelected = event.currentTarget.id;
+  console.log(idItemSelected);
+ 
+// BUSCO EN LIST
+ const itemFound = searchList.find (favoriteItem => {
+   return favoriteItem.id === idItemSelected;
+ });
+
+ //BUSCO EN FAVORITOS
+ const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
+  return favoriteItem.id === idItemSelected;
+});
+
+ if(itemFoundIndex === -1){
+   favoriteList.push(itemFound);
+
+   }else{
+     favoriteList.splice(itemFoundIndex, 1);
+   }
+   console.log(favoriteList);
+ }
+
+
+//LISTENER BOTON SEARH
 searchBtn.addEventListener ('click' , handleClick);
 

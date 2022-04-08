@@ -4,8 +4,29 @@
     display: flex;
     justify-content: space-between;
     align-items:flex-start;
+    gap: 300px;
 
 }
+/*.preview{
+&__title{
+    font-size: 20px;
+    color: cadetblue;
+}
+&__image{
+   width: 200px;
+   border: 10px solid palegreen;
+}
+//CAMBIOS CLIC
+&--clicked
+ .title-clicked{
+    font-size: 20px;
+    color: palegreen;
+}
+.image-clicked{
+   width: 200px;
+   border: 10px solid cadetblue;
+}
+}*/
 
 .title{
     font-size: 20px;
