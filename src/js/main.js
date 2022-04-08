@@ -41,32 +41,79 @@ function handleClick (event){
   
   }
 
+
+
+
 // PINTAR
 function renderItem (searchList){
  //VARIABLE DE PAINT FUNCTION
 let listItem = ''; 
-ulList.innerHTML += '';
+ulList.innerHTML = '';
+
+
+
 
 for (const eachItem of searchList){
-console.log(eachItem);
+//console.log(eachItem);
 
 if (eachItem.image === ''){
-  listItem += `<li class='js_listItem' id =${eachItem.id}><h3 js_itemTitle'> ${eachItem.name}</h3><img js_itemImage' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/></li>`;
+  listItem += `<li class='js_listItem' id =${eachItem.id}>`;
+  listItem += `<h3 class='title js_itemTitle'> ${eachItem.name}</h3>`;
+  listItem += `<img class= 'image js_itemImage ' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
+  listItem += `</li>`;
 
 
 }else{
-listItem += `<li class='js_listItem' id =${eachItem.id}><h3 class ='title js_itemTitle'> ${eachItem.name}</h3><img class ='image js_itemImage' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
-
-}};
+listItem += `<li class='style js_listItem' id =${eachItem.id}>`;
+listItem += `<h3 class ='style__title js_itemTitle'> ${eachItem.name}</h3>`;
+listItem += `<img class ='style__image js_itemImage ' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
+listItem += `</li>`;
+}
+};
 
 ulList.innerHTML += listItem;
-
-
-
+listenerList();
 }
 
+  //FUNCION LISTENER DE LA LIST
+  function listenerList(){
+    const liItem = document.querySelectorAll('.js_listItem');
+    for(const eachListItem of liItem){
+      eachListItem.addEventListener('click' , handleClickList);
+    }
+    }
 
 
-//LISTENERS
+
+//FAVORITOS
+let favoriteList = [];
+
+
+  //FUNCION CLICK LIST
+  function handleClickList(event){
+    console.log('click');
+  const idItemSelected = event.currentTarget.id;
+  console.log(idItemSelected);
+ 
+// BUSCO EN LIST
+ const itemFound = searchList.find (favoriteItem => {
+   return favoriteItem.id === idItemSelected;
+ });
+
+ //BUSCO EN FAVORITOS
+ const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
+  return favoriteItem.id === idItemSelected;
+});
+
+ if(itemFoundIndex === -1){
+   favoriteList.push(itemFound);
+
+   }else{
+     favoriteList.splice(itemFoundIndex, 1);
+   }
+   console.log(favoriteList);
+ }
+
+
+//LISTENER BOTON SEARH
 searchBtn.addEventListener ('click' , handleClick);
-

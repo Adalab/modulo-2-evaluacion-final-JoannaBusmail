@@ -4,14 +4,16 @@
     display: flex;
     justify-content: space-between;
     align-items:flex-start;
+    gap: 150px;
 
 }
-
-.title{
+.style{
+&__title{
     font-size: 20px;
     color: cadetblue;
 }
-.image{
+&__image{
    width: 200px;
    border: 10px solid palegreen;
+}
 }
