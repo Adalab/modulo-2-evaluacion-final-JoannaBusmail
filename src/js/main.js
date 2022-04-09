@@ -105,18 +105,19 @@ listenerList();
 }
 
 // ***** FUNCION PINTAR FAVORITOS ******
-function renderFav (){
+function renderFav(){
   let favItem = '';
-  for (const eachFav of favoriteList){
-    
-    favItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
-    favItem += `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
-    favItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
-    favItem += `</li>`;
-  }
 
-  favoritesList.innerHTML += favItem;
-  
+  //recorro array de favoritos
+  for (const eachFav of favoriteList){
+      favItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
+      favItem += `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
+      favItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
+      favItem += `</li>`;
+    
+  }
+favoritesList.innerHTML += favItem;
+listenerList();
 };
 
    // ******   FUNCION LISTENER DE LA LIST *****
@@ -154,12 +155,15 @@ let favoriteList = [];
      favoriteList.splice(itemFoundIndex, 1);
    }
    //vuelvo a pintar para que aparezca el cambio en click
-   renderItem (searchList);
+  renderItem (searchList);
   renderFav();
-   console.log(favoriteList);
+  console.log(favoriteList);
  }
 
-
+function handleSubmit (event){
+  event.preventDefault();
+}
 
 //*******   LISTENER BOTON SEARCH ****
 searchBtn.addEventListener ('click' , handleClick);
+form.addEventListener('click' , handleSubmit);
