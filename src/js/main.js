@@ -56,17 +56,40 @@ ulList.innerHTML = '';
 for (const eachItem of searchList){
 //console.log(eachItem);
 
+
+let favTitle = '';
+let favImage = '';
+
+ //BUSCO EN FAVORITOS
+ const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
+  return favoriteItem.id === eachItem.id;
+});
+//si está cambio de color al titulo
+if(itemFoundIndex !== -1){
+  favTitle = 'fav-style__fav-title';
+}else{
+  favTitle = '';
+}
+
+//si está cambio de color al borde
+if(itemFoundIndex !== -1){
+  favImage = 'fav-style__fav-image';
+}else{
+  favImage = '';
+}
+
+//Si el item no tiene imagen pinto placeholder
 if (eachItem.image === ''){
-  listItem += `<li class='js_listItem' id =${eachItem.id}>`;
-  listItem += `<h3 class='title js_itemTitle'> ${eachItem.name}</h3>`;
-  listItem += `<img class= 'image js_itemImage ' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
+  listItem += `<li class='style js_listItem ' id =${eachItem.id}>`;
+  listItem += `<h3 class='style__title js_itemTitle ${favTitle}'> ${eachItem.name}</h3>`;
+  listItem += `<img class= 'style__image js_itemImage ${favImage}' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
   listItem += `</li>`;
 
-
+//si tiene imagen pinto imagen
 }else{
 listItem += `<li class='style js_listItem' id =${eachItem.id}>`;
-listItem += `<h3 class ='style__title js_itemTitle'> ${eachItem.name}</h3>`;
-listItem += `<img class ='style__image js_itemImage ' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
+listItem += `<h3 class ='style__title js_itemTitle ${favTitle}'> ${eachItem.name}</h3>`;
+listItem += `<img class ='style__image js_itemImage ${favImage} ' src = ${eachItem.image} alt  ${eachItem.alt}/></li>`;
 listItem += `</li>`;
 }
 };
