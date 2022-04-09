@@ -6,24 +6,27 @@ const form = document.querySelector('.js_form');
 const input = document.querySelector ('.js_input');
 const searchBtn = document.querySelector ('.js_searchBtn');
 const resetBtn = document.querySelector ('.js_resetBtn');
-const favorites = document.querySelector ('.js_favorites');
+const favoritesList = document.querySelector ('.js_favorites');
 const ulList = document.querySelector ('.js_list');
 
-//VARIABLE DE INFO ITEMS API
+// *****  VARIABLE DONDE GUARDO CADA ELEMENTO BUSCADO DE LA API*****
 let searchList = [];
 
 
 
 
-//CLICK BUSCAR
+// *****    FUNCION CLICK BUSCAR ******
+//1. función handle del click del boton buscar
+//2. guardo en constante el valor de esa busqueda
 function handleClick (event){
   event.preventDefault();
   const inputValue = input.value;
-  //PETICION SERVIDOR
+// 3.pido al servidor lo que he buscado
   fetch (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`)
   .then((response) => response.json())
   .then((data)=> {
     console.log(data);
+//4. mapeo - solo necesito 4 cosas de la api
     searchList = data.drinks.map((item)=>{
       const newSearchList = {
           name : item.strDrink,
@@ -33,7 +36,7 @@ function handleClick (event){
       };
       return newSearchList;
   });
-
+//.5 pinto la lista buscada
   renderItem(searchList);
   console.log(searchList);
   
@@ -44,48 +47,50 @@ function handleClick (event){
 
 
 
-// PINTAR
+// ********   FUNCION  PINTAR ***********
+
 function renderItem (searchList){
- //VARIABLE DE PAINT FUNCTION
+ //1. Creo variable para pintar todos los elementos de la api
 let listItem = ''; 
+// 2. variable para que cuando hago una nueva busqueda me limpie la anterior
 ulList.innerHTML = '';
 
 
 
-
+// 3. recorro cada elemento de mi array
 for (const eachItem of searchList){
 //console.log(eachItem);
 
-
+//4. variables para guardar cambios de estilo
 let favTitle = '';
 let favImage = '';
 
- //BUSCO EN FAVORITOS
+ //5.busco si el item esta en favoritos (si he hecho click)
  const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
   return favoriteItem.id === eachItem.id;
 });
-//si está cambio de color al titulo
+//6.si está cambio de color al titulo
 if(itemFoundIndex !== -1){
   favTitle = 'fav-style__fav-title';
 }else{
   favTitle = '';
 }
 
-//si está cambio de color al borde
+//6.si está cambio de color al borde
 if(itemFoundIndex !== -1){
   favImage = 'fav-style__fav-image';
 }else{
   favImage = '';
 }
 
-//Si el item no tiene imagen pinto placeholder
+//Ej. 1 - 1. Si el item no tiene imagen pinto placeholder
 if (eachItem.image === ''){
   listItem += `<li class='style js_listItem ' id =${eachItem.id}>`;
   listItem += `<h3 class='style__title js_itemTitle ${favTitle}'> ${eachItem.name}</h3>`;
   listItem += `<img class= 'style__image js_itemImage ${favImage}' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
   listItem += `</li>`;
 
-//si tiene imagen pinto imagen
+//2. si tiene imagen pinto imagen
 }else{
 listItem += `<li class='style js_listItem' id =${eachItem.id}>`;
 listItem += `<h3 class ='style__title js_itemTitle ${favTitle}'> ${eachItem.name}</h3>`;
@@ -95,35 +100,49 @@ listItem += `</li>`;
 };
 
 ulList.innerHTML += listItem;
+//llamo a la funcion que recorre mi  array de 'LIST'
 listenerList();
 }
 
-  //FUNCION LISTENER DE LA LIST
-  function listenerList(){
+// ***** FUNCION PINTAR FAVORITOS ******
+function renderFav (){
+  let favItem = '';
+  for (const eachFav of favoriteList){
+    
+    favItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
+    favItem += `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
+    favItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
+    favItem += `</li>`;
+  }
+
+  favoritesList.innerHTML += favItem;
+  
+};
+
+   // ******   FUNCION LISTENER DE LA LIST *****
+   function listenerList(){
     const liItem = document.querySelectorAll('.js_listItem');
     for(const eachListItem of liItem){
       eachListItem.addEventListener('click' , handleClickList);
     }
     }
 
-
-
-//FAVORITOS
+// *********    FAVORITOS   *******
 let favoriteList = [];
 
 
-  //FUNCION CLICK LIST
+  //*********  FUNCION CLICK LIST   *******
   function handleClickList(event){
     console.log('click');
   const idItemSelected = event.currentTarget.id;
   console.log(idItemSelected);
  
-// BUSCO EN LIST
+// busco en list
  const itemFound = searchList.find (favoriteItem => {
    return favoriteItem.id === idItemSelected;
  });
 
- //BUSCO EN FAVORITOS
+ //busco en favoritos
  const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
   return favoriteItem.id === idItemSelected;
 });
@@ -134,10 +153,13 @@ let favoriteList = [];
    }else{
      favoriteList.splice(itemFoundIndex, 1);
    }
+   //vuelvo a pintar para que aparezca el cambio en click
    renderItem (searchList);
+  renderFav();
    console.log(favoriteList);
  }
 
 
-//LISTENER BOTON SEARH
+
+//*******   LISTENER BOTON SEARCH ****
 searchBtn.addEventListener ('click' , handleClick);

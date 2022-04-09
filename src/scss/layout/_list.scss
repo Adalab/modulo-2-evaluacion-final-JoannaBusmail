@@ -15,7 +15,7 @@
 }
 &__image{
    width: 200px;
-   border: 10px solid palegreen;
+   border: 10px solid darkslateblue;
 }
 
 }
@@ -23,10 +23,12 @@
 .fav-style{
 
     &__fav-title{
-    color: palegreen;
+        font-size: 20px;
+    color: darkslateblue;
     }
     &__fav-image{
-      border-color: cadetblue;
+        width: 200px;
+        border: 10px solid cadetblue;
     }
     
 }
