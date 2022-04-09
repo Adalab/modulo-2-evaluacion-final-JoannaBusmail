@@ -134,6 +134,7 @@ let favoriteList = [];
    }else{
      favoriteList.splice(itemFoundIndex, 1);
    }
+   renderItem (searchList);
    console.log(favoriteList);
  }
 
