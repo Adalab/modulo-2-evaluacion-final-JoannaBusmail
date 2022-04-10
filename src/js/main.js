@@ -6,7 +6,7 @@ const form = document.querySelector('.js_form');
 const input = document.querySelector ('.js_input');
 const searchBtn = document.querySelector ('.js_searchBtn');
 const resetBtn = document.querySelector ('.js_resetBtn');
-const favoritesList = document.querySelector ('.js_favorites');
+const ulFavoriteList = document.querySelector ('.js_favorites');
 const ulList = document.querySelector ('.js_list');
 
 // *****  VARIABLE DONDE GUARDO CADA ELEMENTO BUSCADO DE LA API*****
@@ -104,21 +104,7 @@ ulList.innerHTML += listItem;
 listenerList();
 }
 
-// ***** FUNCION PINTAR FAVORITOS ******
-function renderFav(){
-  let favItem = '';
 
-  //recorro array de favoritos
-  for (const eachFav of favoriteList){
-      favItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
-      favItem += `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
-      favItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
-      favItem += `</li>`;
-    
-  }
-favoritesList.innerHTML += favItem;
-listenerList();
-};
 
    // ******   FUNCION LISTENER DE LA LIST *****
    function listenerList(){
@@ -159,6 +145,29 @@ let favoriteList = [];
   renderFav();
   console.log(favoriteList);
  }
+
+// ***** FUNCION PINTAR FAVORITOS ******
+function renderFav(){
+let favsItem = '';
+  ulFavoriteList.innerHTML = '';
+
+  //recorro array de favoritos
+  for (const eachFav of favoriteList){
+      favsItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
+      favsItem+= `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
+      favsItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
+      favsItem += `</li>`;
+    
+  };
+  ulFavoriteList.innerHTML += favsItem;
+
+
+}
+
+
+
+
+
 
 function handleSubmit (event){
   event.preventDefault();
