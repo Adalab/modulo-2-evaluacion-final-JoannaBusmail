@@ -161,11 +161,18 @@ let favsItem = '';
   };
   ulFavoriteList.innerHTML += favsItem;
 
-
 }
 
+//*****LOCAL STORAGE   **** */
+function copyLocalStorage(){}
+const favsListStorage = JSON.parse(localStorage.getItem('ulFavoriteList'));
+//comprobar si es la primera vaez que entro en la página
+if(favsListStorage !== null){
+  favoriteList = favsListStorage;
+  renderFav = (favoriteList);
+}else{
 
-
+}
 
 
 
