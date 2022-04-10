@@ -6,7 +6,7 @@ const form = document.querySelector('.js_form');
 const input = document.querySelector ('.js_input');
 const searchBtn = document.querySelector ('.js_searchBtn');
 const resetBtn = document.querySelector ('.js_resetBtn');
-const favoritesList = document.querySelector ('.js_favorites');
+const favList = document.querySelector ('.js_favorites');
 const ulList = document.querySelector ('.js_list');
 
 // *****  VARIABLE DONDE GUARDO CADA ELEMENTO BUSCADO DE LA API*****
@@ -102,24 +102,9 @@ listItem += `</li>`;
 ulList.innerHTML += listItem;
 //llamo a la funcion que recorre mi  array de 'LIST'
 listenerList();
+
+
 }
-
-// ***** FUNCION PINTAR FAVORITOS ******
-function renderFav(){
-  let favItem = '';
-
-  //recorro array de favoritos
-  for (const eachFav of favoriteList){
-      favItem += `<li class='fav-style js_listItem' id =${eachFav.id}>`;
-      favItem += `<h3 class ='fav-style__fav-title js_itemTitle '> ${eachFav.name}</h3>`;
-      favItem += `<img class ='fav-style__fav-image js_itemImage' src = ${eachFav.image} alt  ${eachFav.alt}/></li>`;
-      favItem += `</li>`;
-    
-  }
-favoritesList.innerHTML += favItem;
-listenerList();
-};
-
    // ******   FUNCION LISTENER DE LA LIST *****
    function listenerList(){
     const liItem = document.querySelectorAll('.js_listItem');
@@ -128,24 +113,29 @@ listenerList();
     }
     }
 
-// *********    FAVORITOS   *******
-let favoriteList = [];
-
-
+    let favoriteList = [];
+    
   //*********  FUNCION CLICK LIST   *******
+  // busco li clicada
   function handleClickList(event){
     console.log('click');
-  const idItemSelected = event.currentTarget.id;
-  console.log(idItemSelected);
+  const itemSelected = event.currentTarget;
+  // identifico id de cada elemento clicado de li
+  const itemId = parseInt(itemSelected.id);
+
+
+  
+// *********    FAVORITOS   *******
+
  
-// busco en list
+// busco por id en list global
  const itemFound = searchList.find (favoriteItem => {
-   return favoriteItem.id === idItemSelected;
+   return favoriteItem.id === itemId;
  });
 
- //busco en favoritos
+ //busco  por id si esta en favoritos
  const itemFoundIndex = favoriteList.findIndex (favoriteItem => {
-  return favoriteItem.id === idItemSelected;
+  return favoriteItem.id === itemId;
 });
 
  if(itemFoundIndex === -1){
@@ -159,6 +149,36 @@ let favoriteList = [];
   renderFav();
   console.log(favoriteList);
  }
+
+
+
+// ***** FUNCION PINTAR FAVORITOS ******
+function renderFav(){
+  favList.innerHTML += '';
+  //recorro array de favoritos
+  for (const eachFav of favoriteList){
+  
+//Ej. 1 - 1. Si el item no tiene imagen pinto placeholder
+if (eachFav.image === ''){
+favList += `<li class='style js_listItem ' id =${eachFav.id}>`;
+  favList += `<h3 class='style__title js_itemTitle'> ${eachFav.name}</h3>`;
+ favList += `<img class= 'style__image js_itemImage' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachFav.alt}/>`;
+  favList+= `</li>`;
+
+//2. si tiene imagen pinto imagen
+}else{
+favList+= `<li class='style js_listItem' id =${favItem.id}>`;
+favList += `<h3 class ='style__title js_itemTitle'> ${favItem.name}</h3>`;
+favList += `<img class ='style__image js_itemImage' src = ${favItem.image} alt  ${favItem.alt}/></li>`;
+favList += `</li>`;
+}
+};
+
+  
+//listenerList();
+}
+
+
 
 function handleSubmit (event){
   event.preventDefault();
