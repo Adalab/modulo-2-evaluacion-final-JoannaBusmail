@@ -11,7 +11,8 @@ const ulList = document.querySelector ('.js_list');
 
 // *****  VARIABLE DONDE GUARDO CADA ELEMENTO BUSCADO DE LA API*****
 let searchList = [];
-
+// ***** VARIABLE DONDE GUARDO CADA ELEMENTO DE FAVORITOS ****
+let favoriteList = [];
 
 
 
@@ -20,29 +21,10 @@ let searchList = [];
 //2. guardo en constante el valor de esa busqueda
 function handleClick (event){
   event.preventDefault();
-  const inputValue = input.value;
-// 3.pido al servidor lo que he buscado
-  fetch (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`)
-  .then((response) => response.json())
-  .then((data)=> {
-    console.log(data);
-//4. mapeo - solo necesito 4 cosas de la api
-    searchList = data.drinks.map((item)=>{
-      const newSearchList = {
-          name : item.strDrink,
-          image: item.strDrinkThumb,
-          alt:item.strImageAttributio,
-          id:item.idDrink,
-      };
-      return newSearchList;
-  });
-//.5 pinto la lista buscada
-  renderItem(searchList);
-  console.log(searchList);
+  getInfoApi();
+}
+
   
-  });
-  
-  }
 
 
 
@@ -54,7 +36,6 @@ function renderItem (searchList){
 let listItem = ''; 
 // 2. variable para que cuando hago una nueva busqueda me limpie la anterior
 ulList.innerHTML = '';
-
 
 
 // 3. recorro cada elemento de mi array
@@ -114,13 +95,13 @@ listenerList();
     }
     }
 
-// *********    FAVORITOS   *******
-let favoriteList = [];
+
+
 
 
   //*********  FUNCION CLICK LIST   *******
   function handleClickList(event){
-    console.log('click');
+
   const idItemSelected = event.currentTarget.id;
   console.log(idItemSelected);
  
@@ -144,12 +125,13 @@ let favoriteList = [];
   renderItem (searchList);
   renderFav();
   console.log(favoriteList);
+
  }
 
 // ***** FUNCION PINTAR FAVORITOS ******
 function renderFav(){
 let favsItem = '';
-  ulFavoriteList.innerHTML = '';
+ulFavoriteList.innerHTML = '';
 
   //recorro array de favoritos
   for (const eachFav of favoriteList){
@@ -164,18 +146,48 @@ let favsItem = '';
 }
 
 //*****LOCAL STORAGE   **** */
-function copyLocalStorage(){}
-const favsListStorage = JSON.parse(localStorage.getItem('ulFavoriteList'));
-//comprobar si es la primera vaez que entro en la página
-if(favsListStorage !== null){
-  favoriteList = favsListStorage;
-  renderFav = (favoriteList);
-}else{
+function copyInLocalStorage(){
+  const stringFavs = JSON.stringify(favoriteList);
+  localStorage.setItem('favoriteList' , stringFavs);
+}
+// 3.pido al servidor lo que he buscado
+function getInfoApi(){
+  const inputValue = input.value;
+  fetch (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`)
+  .then((response) => response.json())
+  .then((data)=> {
+    console.log(data);
+//4. mapeo - solo necesito 4 cosas de la api
+    searchList = data.drinks.map((item)=>{
+      const newSearchList = {
+          name : item.strDrink,
+          image: item.strDrinkThumb,
+          alt:item.strImageAttributio,
+          id:item.idDrink,
+      };
+      return newSearchList;
+  });
+//.5 pinto la lista buscada
+  renderItem(searchList);
+  copyInLocalStorage();
+  });
+}
 
+function getLocalStorageFavs(){
+  const localStorageFavs = localStorage.getItem('favoriteList');
+  const arrayFavs = JSON.parse(localStorageFavs);
+  renderFav();
 }
 
 
+  if (localStorage.getItem('favoriteList') !== null){
+    getLocalStorageFavs();
+  }else{
+    getInfoApi();
+  }
 
+
+getLocalStorageFavs();
 
 function handleSubmit (event){
   event.preventDefault();
