@@ -11,11 +11,12 @@
 .style{
 &__title{
     font-size: 20px;
-    color: cadetblue;
+    color:#44aa9e;
 }
 &__image{
    width: 200px;
-   border: 10px solid darkslateblue;
+   border: 10px solid #076969;
+   border-radius: 10%;
 }
 
 }
@@ -24,11 +25,12 @@
 
     &__fav-title{
         font-size: 20px;
-    color: darkslateblue;
+    color: #076969;
     }
     &__fav-image{
         width: 200px;
-        border: 10px solid cadetblue;
+        border: 10px solid #44aa9e;
+        border-radius: 10%;
     }
     
 }
@@ -36,14 +38,14 @@
 .close{
     width: 20px;
     height:20px;
-    border: 2px solid burlywood;
-    background-color: brown;
+    border: 2px solid #dbb867;
+    background-color: #f1a20f;
     border-radius: 50%;
     &__text{
         font-size: 10px;
         font-family:Arial, Helvetica, sans-serif;
         font-weight:900;
         transform: translate(20% , 5%);
-        color: burlywood;
+        color: rgb(251, 245, 237);
     }
 }

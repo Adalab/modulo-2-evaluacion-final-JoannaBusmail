@@ -11,7 +11,7 @@ function copyInLocalStorage(){
   function getLocalStorageFavs(){
     const localStorageFavs = localStorage.getItem('favoriteList');
     const arrayFavs = JSON.parse(localStorageFavs);
-    favoriteList = arrayFavs;
+   favoriteList = arrayFavs;
     renderFav();
   }
   
