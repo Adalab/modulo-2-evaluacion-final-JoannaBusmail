@@ -1,20 +1,21 @@
 'use strict';
 
-
 //pido al servidor lo que he buscado
-function getInfoApi(){
+function getInfoApi() {
   const inputValue = input.value;
-  fetch (`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`)
+  fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputValue}`
+  )
     .then((response) => response.json())
-    .then((data)=> {
+    .then((data) => {
       console.log(data);
       //mapeo - solo necesito 4 cosas de la api
-      searchList = data.drinks.map((item)=>{
+      searchList = data.drinks.map((item) => {
         const newSearchList = {
-          name : item.strDrink,
+          name: item.strDrink,
           image: item.strDrinkThumb,
-          alt:item.strImageAttributio,
-          id:item.idDrink,
+          alt: item.strImageAttributio,
+          id: item.idDrink,
         };
         return newSearchList;
       });
@@ -22,14 +23,13 @@ function getInfoApi(){
       renderItem(searchList);
       //pinto la lista de favs
       renderFav();
-
     });
 }
 
-function handleClick (event){
+function handleClick(event) {
   event.preventDefault();
   //cuando hago click necesito llamar a la info del servidor
   getInfoApi();
 }
 
-searchBtn.addEventListener ('click' , handleClick);
+searchBtn.addEventListener('click', handleClick);
