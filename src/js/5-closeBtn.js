@@ -1,7 +1,6 @@
 'use strict';
 
 function handleClickCloseBtn(event) {
-  console.log('hola x');
   event.preventDefault();
   const idItemSelected = event.currentTarget.id;
   const itemFoundIndex = favoriteList.findIndex((favoriteItem) => {

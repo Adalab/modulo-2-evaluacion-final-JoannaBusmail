@@ -48,6 +48,7 @@ function renderFav() {
 
   ulFavoriteList.innerHTML += favsItem;
   listenerCloseBtn();
+  listenerResetBtn();
 }
 
 // Escucho LISTA GLOBAL: click en cada elemento aparecido de la búsqueda principal
