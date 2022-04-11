@@ -34,7 +34,7 @@ function renderItem(searchList) {
 
     //Si el item no tiene imagen pinto placeholder
     if (eachItem.image === '') {
-      listItem += `<li class='style js_listItem ' id =${eachItem.id}>`;
+      listItem += `<li class='style js_listItem'  id =${eachItem.id}>`;
       listItem += `<h3 class='style__title js_itemTitle ${favTitle}'> ${eachItem.name}</h3>`;
       listItem += `<img class= 'style__image js_itemImage ${favImage}' src = 'https://via.placeholder.com/210x295/ffffff/666666/?text=cóctel' alt  ${eachItem.alt}/>`;
       listItem += `</li>`;

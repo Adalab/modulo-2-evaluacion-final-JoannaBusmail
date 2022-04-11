@@ -10,18 +10,13 @@ function copyInLocalStorage() {
 function getLocalStorageFavs() {
   const localStorageFavs = localStorage.getItem('favoriteList');
   const arrayFavs = JSON.parse(localStorageFavs);
-  favoriteList = arrayFavs;
+
+  //Si está guardado en LS llamo a la funcion
+  if (localStorageFavs !== null) {
+    favoriteList = arrayFavs;
+  }
   renderFav();
 }
-
-//Si está guardado en LS llamo a la funcion y esta función me dice a su vez que pinte el listado de favoritos
-if (localStorage.getItem('favoriteList') !== null) {
-  getLocalStorageFavs();
-  //Si no esta guardado en LS llamo a la info de la API que a su vez ésta me dice que pinte el listado de favoritos
-} else {
-  getInfoApi();
-}
-
 //Llamo a la info guardada en LS y que la pinte, cuando cargue la página
 
 getLocalStorageFavs();

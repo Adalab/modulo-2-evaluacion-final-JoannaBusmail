@@ -9,10 +9,9 @@ function handleClickCloseBtn(event) {
   if (itemFoundIndex === -1) {
     favoriteList.splice(itemFoundIndex, 1);
   }
-
+  copyInLocalStorage();
   renderFav();
   renderItem(searchList);
-  copyInLocalStorage();
 }
 
 // Escucho boton close lista favs
