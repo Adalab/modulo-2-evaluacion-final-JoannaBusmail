@@ -1,8 +1,5 @@
 'use strict';
 
-'use strict';
-
-//HandleClick de lista Global
 function handleClickList(event) {
   //Busco id de cada elemento clicado
   const idItemSelected = event.currentTarget.id;
