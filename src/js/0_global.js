@@ -18,9 +18,9 @@ let favoriteList = [];
 
 
 function handleSubmit (event){
-    event.preventDefault();
-  }
+  event.preventDefault();
+}
   
-  //*******   LISTENER BOTON SEARCH ****
+//*******   LISTENER BOTON SEARCH ****
 
-  form.addEventListener('click' , handleSubmit);
+form.addEventListener('click' , handleSubmit);
